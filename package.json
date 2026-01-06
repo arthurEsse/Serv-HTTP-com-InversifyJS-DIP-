@@ -1,0 +1,17 @@
+{
+  "name": "t6",
+  "version": "1.0.0",
+  "description": "Trabalho: Serviço HTTP com InversifyJS (DIP)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Arthur Esse & Gabriel Zardini",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.19.27",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}
