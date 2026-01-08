@@ -4,7 +4,7 @@
   "description": "Trabalho: Serviço HTTP com InversifyJS (DIP)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx watch src/domain/services/ReportServiceImpl.ts"
   },
   "keywords": [],
   "author": "Arthur Esse & Gabriel Zardini",
@@ -13,5 +13,8 @@
     "@types/node": "^20.19.27",
     "tsx": "^4.7.0",
     "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.2.0"
   }
 }
