@@ -1,5 +1,6 @@
 import { InvalidReportSizeError } from "../errors/InvalidReportSizeError";
-import { ReportDataGenerator} from "../interfaces/ReportDataGenerator"
+import { ReportDataGenerator} from "../interfaces/ReportDataGenerator";
+import { ReportRecord } from "../../types";
 /*export class ReportService{
      // agora o método recebe os dados diretamente
     generateReport(n_registros: number, catalogo: ReportRecord[]): ReportRecord[] {
@@ -48,13 +49,3 @@ export class ReportService {
     }
   }
 }
-
-//esse type tá aqui, mas tem de achar um lugar melhor.
-export type ReportRecord = {
-  nome: string;
-  cidade: string;
-};
-
-import {FakerReportDataGenerator} from "../../infra/gerador_dados/FakerReportDataGenerator"
-const catalogo = new FakerReportDataGenerator();
-console.log(catalogo.generate(5));
