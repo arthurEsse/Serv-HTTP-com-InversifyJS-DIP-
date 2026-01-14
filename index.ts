@@ -1,0 +1,1 @@
+console.log(`A senha super secreta é: ${process.env.SENHA_SECRETA}`)

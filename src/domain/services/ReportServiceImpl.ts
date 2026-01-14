@@ -1,50 +1,51 @@
-import { InvalidReportSizeError } from "../errors/InvalidReportSizeError";
-import { ReportDataGenerator} from "../interfaces/ReportDataGenerator";
-import { ReportRecord } from "../../types";
-/*export class ReportService{
-     // agora o método recebe os dados diretamente
-    generateReport(n_registros: number, catalogo: ReportRecord[]): ReportRecord[] {
-      this.validateReportSize(n_registros);
+import { InvalidReportSizeError } from "../errors/InvalidReportSizeError"
+import { ReportDataGenerator } from "../interfaces/ReportDataGenerator";
+import { Logger } from "../interfaces/Logger";
+import { Mailer} from "../interfaces/Mailer"
+import { ReportService } from "../interfaces/ReportService";
+import { injectable, inject } from "inversify";
+import { TYPES } from "../../container/types";
 
-      // retorna apenas os primeiros n registros
-      return catalogo.slice(0, n_registros);
-    }
+@injectable()
+export class ReportServiceImpl implements ReportService {
 
-    private validateReportSize(n_registros: number): void {
-      if (
-        !Number.isInteger(n_registros) || // temos de garantir recebido um número
-        n_registros < 1 ||
-        n_registros > 10
-      ) {
-        throw new InvalidReportSizeError();
-      }}}
-        
-      export const catalogo2: ReportRecord[] = [
-  { nome: "Oswaldo Monte Negro", cidade: "Rio Janeiro" },
-  { nome: "Videlino", cidade: "Brangaca" },
-  { nome: "Cremildo", cidade: "Fortaleza" },
-  { nome: "Ariano Silva", cidade: "São Paulo" },
-  { nome: "Beatriz Ramos", cidade: "Belo Horizonte" },
-  { nome: "Carlos Eduardo", cidade: "Curitiba" },
-  { nome: "Daniela Costa", cidade: "Porto Alegre" },
-  { nome: "Eduardo Lima", cidade: "Recife" },
-  { nome: "Fernanda Melo", cidade: "Salvador" },
-  { nome: "Gustavo Oliveira", cidade: "Manaus" },
-  { nome: "Helena Duarte", cidade: "Florianópolis" }
-];
-const service = new ReportService();
-// Exemplo : lista com 3 elementos
-console.log(service.generateReport(11, catalogo2));*/
-export class ReportService {
-  constructor(private dataGenerator: ReportDataGenerator) {}
+  constructor(
+    @inject(TYPES.ReportDataGenerator)
+    private dataGenerator: ReportDataGenerator,
 
-  generateReport(n_registros: number): ReportRecord[] {
+    @inject(TYPES.Logger)
+    private logger: Logger,
+
+    @inject(TYPES.Mailer)
+    private mailer: Mailer
+  ) {}
+
+  async generateAndSend(email: string, n_registros: number): Promise<void> {
+  try {
     this.validateReportSize(n_registros);
-    return this.dataGenerator.generate(n_registros);
+    this.logger.info(`Iniciando geração de relatório para ${n_registros} registros`);
+
+    const report = this.dataGenerator.generate(n_registros);
+
+    const body = report.map(r => `Nome: ${r.nome} - Cidade: ${r.cidade}`).join("<br>");
+
+    this.logger.info(`Enviando relatório para ${email}`);
+    await this.mailer.send(email, "Relatório de Dados", body);
+    this.logger.info(`Relatório enviado com sucesso para ${email}`);
+
+  } catch (err: any) {
+    if (err instanceof InvalidReportSizeError) {
+      this.logger.warn(`Tentativa de gerar relatório inválido: ${n_registros}`);
+    } else {
+      this.logger.error(`Falha ao gerar/enviar relatório: ${err.message}`);
+    }
+    throw err; // relança para o controller tratar a resposta HTTP
   }
+}
 
   private validateReportSize(n_registros: number): void {
     if (!Number.isInteger(n_registros) || n_registros < 1 || n_registros > 10) {
+      this.logger.warn(`Tentativa de gerar relatório inválido: ${n_registros}`);
       throw new InvalidReportSizeError();
     }
   }

@@ -1,4 +1,4 @@
-import { ReportRecord } from "../services/ReportServiceImpl";
+import { ReportRecord } from "../../container/types";
 
 //Qualquer coisa que saiba gerar dados de relatório precisa ter esse método, seja por faker, banco de dados...
 export interface ReportDataGenerator {
