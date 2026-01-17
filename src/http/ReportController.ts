@@ -1,9 +1,9 @@
 // http/ReportController.ts
 import { Router } from "express";
-import { container } from "../container/container";
-import { TYPES } from "../container/types";
-import { ReportService } from "../domain/interfaces/ReportService";
-import { InvalidReportSizeError } from "../domain/errors/InvalidReportSizeError";
+import { container } from "../container/container.js";
+import { TYPES } from "../container/types.js";
+import { ReportService } from "../domain/interfaces/ReportService.js";
+import { InvalidReportSizeError } from "../domain/errors/InvalidReportSizeError.js";
 
 const router = Router();
 

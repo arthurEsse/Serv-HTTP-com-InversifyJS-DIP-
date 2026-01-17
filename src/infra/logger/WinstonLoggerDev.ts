@@ -1,6 +1,6 @@
 //esse mandará informações para o console, será colorido
 import { createLogger, format, transports } from "winston";
-import { Logger } from "../../domain/interfaces/Logger";
+import { Logger } from "../../domain/interfaces/Logger.js";
 
 export class WinstonLoggerDev implements Logger {
   private logger = createLogger({

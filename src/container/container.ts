@@ -1,12 +1,13 @@
 // container/container.ts
 import { Container } from "inversify";
-import { TYPES } from "./types";
-import { WinstonLoggerProd } from "../infra/logger/WinstonLoggerProd";
-import { WinstonLoggerDev } from "../infra/logger/WinstonLoggerDev";
-import { SmtpMailer } from "../infra/mailer/SmtpMailer";
-import { EtherealMailer } from "../infra/mailer/EtherealMailer";
-import { FakerReportDataGenerator } from "../infra/gerador_dados/FakerReportDataGenerator";
-import { ReportServiceImpl } from "../domain/services/ReportServiceImpl";
+import { TYPES } from "./types.js";
+import { WinstonLoggerProd } from "../infra/logger/WinstonLoggerProd.js";
+import { WinstonLoggerDev } from "../infra/logger/WinstonLoggerDev.js";
+import { SmtpMailer } from "../infra/mailer/SmtpMailer.js";
+import { EtherealMailer } from "../infra/mailer/EtherealMailer.js";
+import { FakerReportDataGenerator } from "../infra/gerador_dados/FakerReportDataGenerator.js";
+import { ReportServiceImpl } from "../domain/services/ReportServiceImpl.js";
+
 
 const container = new Container();
 
@@ -22,7 +23,10 @@ container.bind(TYPES.ReportDataGenerator)
   .to(FakerReportDataGenerator)
   .inSingletonScope();
 
+
+
 container.bind(TYPES.ReportService)
   .to(ReportServiceImpl);
+
 
 export { container };

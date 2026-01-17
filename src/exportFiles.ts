@@ -1,3 +1,5 @@
+/*Essa função não faz parte do projeto, tem apenas por finalidade extrair o nome
+dos arquivos e seus testos, quando necessário. Pode ser útil para montar documentação */
 import fs from "fs";
 import path from "path";
 

@@ -1,10 +1,10 @@
-import { InvalidReportSizeError } from "../errors/InvalidReportSizeError"
-import { ReportDataGenerator } from "../interfaces/ReportDataGenerator";
-import { Logger } from "../interfaces/Logger";
-import { Mailer} from "../interfaces/Mailer"
-import { ReportService } from "../interfaces/ReportService";
+import { InvalidReportSizeError } from "../errors/InvalidReportSizeError.js"
+import { ReportDataGenerator } from "../interfaces/ReportDataGenerator.js";
+import { Logger } from "../interfaces/Logger.js";
+import { Mailer} from "../interfaces/Mailer.js"
+import { ReportService } from "../interfaces/ReportService.js";
 import { injectable, inject } from "inversify";
-import { TYPES } from "../../container/types";
+import { TYPES } from "../../container/types.js";
 
 @injectable()
 export class ReportServiceImpl implements ReportService {
